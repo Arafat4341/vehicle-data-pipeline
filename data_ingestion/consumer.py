@@ -1,17 +1,3 @@
-# from kafka import KafkaConsumer
-# import json
-
-# consumer = KafkaConsumer(
-#     "vehicle_data",
-#     bootstrap_servers="localhost:9092",
-#     auto_offset_reset="earliest",
-#     value_deserializer=lambda v: json.loads(v.decode("utf-8"))
-# )
-
-# for message in consumer:
-#     data = message.value
-#     print(f"Received Data: Vehicle {data['vehicle_id']} ({data['vehicle_type']}) | Speed: {data['speed']} km/h | Fuel: {data['fuel_level']}% | Status: {data['status']}")
-
 from kafka import KafkaConsumer
 import json
 
@@ -26,7 +12,7 @@ print("Consumer is listening for messages...")
 
 for message in consumer:
     data = message.value
-    print("\n🚗 Received Vehicle Data 🚗")
+    print("\n Received Vehicle Data ")
     print(f"Vehicle ID     : {data.get('vehicle_id', 'N/A')}")
     print(f"Type           : {data.get('vehicle_type', 'N/A')}")
     print(f"Speed          : {data.get('speed', 'N/A')} km/h")
