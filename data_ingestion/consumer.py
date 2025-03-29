@@ -24,11 +24,11 @@ for message in consumer:
     print(f"Latitude       : {data.get('latitude', 'N/A')}")
     print(f"Longitude      : {data.get('longitude', 'N/A')}")
     print(f"Timestamp      : {data.get('timestamp', 'N/A')}")
-    
+
     # New Processed Fields
     print(f"Fuel Efficiency: {data.get('fuel_efficiency', 'N/A')} km/L")
-    print(f"Trip Distance  : {data.get('trip_distance', 'N/A')} km")
-    print(f"Engine Load    : {data.get('engine_load', 'N/A')}%")
-    print(f"Battery Level  : {data.get('battery_level', 'N/A')}%")  # If added in transformation
+    print(f"High-Speed Alert: {'Yes' if data.get('high_speed_alert') else 'No'}")
+    print(f"Engine Health  : {data.get('engine_health', 'N/A')}/100")
+    print(f"Idle           : {'Yes' if data.get('idle') else 'No'}")
 
     print("-" * 50)
