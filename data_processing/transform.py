@@ -1,5 +1,6 @@
 from kafka import KafkaConsumer, KafkaProducer
 import json
+import random
 
 # Kafka Config
 KAFKA_BROKER = "localhost:9092"
@@ -34,11 +35,20 @@ def transform_data(data):
     if data.get("unit") == "mph":
         data["speed"] = round(data["speed"] * 1.60934, 2)  # Convert mph → km/h
 
-    # Add new calculated field: Fuel Efficiency (simplified)
-    if data["speed"] > 0:
-        data["fuel_efficiency"] = round(data["fuel_level"] / data["speed"], 2)
+    # Calculate fuel efficiency (km/l)
+    if data["speed"] > 0 and data["fuel_level"] > 0:
+        data["fuel_efficiency"] = round(data["speed"] / data["fuel_level"], 2)
     else:
         data["fuel_efficiency"] = None
+
+    # Detect high-speed risk
+    data["high_speed_alert"] = data["speed"] > 120  # Flag if speed > 120 km/h
+
+    # Assign a random engine health score (1-100)
+    data["engine_health"] = random.randint(50, 100)
+
+    # Detect idle time (if speed is 0)
+    data["idle"] = data["speed"] == 0
 
     return data
 
