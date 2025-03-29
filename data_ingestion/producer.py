@@ -3,6 +3,9 @@ import json
 import time
 import random
 
+# kafka config
+RAW_TOPIC = "raw_vehicle_data"
+
 # Initialize Kafka Producer
 producer = KafkaProducer(
     bootstrap_servers="localhost:9092",
@@ -42,6 +45,6 @@ def generate_vehicle_data():
 # Continuous data streaming
 while True:
     data = generate_vehicle_data()
-    producer.send("vehicle_data", value=data)
+    producer.send(RAW_TOPIC, value=data)
     print(f"Sent: {data}")
     time.sleep(2)
